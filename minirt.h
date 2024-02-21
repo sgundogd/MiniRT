@@ -4,46 +4,48 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-#include <fcntl.h>
+# include <fcntl.h>
+# include <math.h>
+# include "./mlx/mlx.h"
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 
-typedef struct s_color{
+typedef struct s_color{ //renkler için ortak struct
     double r;
     double g;
     double b;
 } t_color;
 
-typedef struct s_xyz{
+typedef struct s_xyz{ //kordinat için ortak struct
     double x;
     double y;
     double z;
 } t_xyz;
 
-typedef struct  s_sphere{
-    t_color sp_rgb;
-    t_xyz sp_xyz;
-    double sp_diameter;
+typedef struct  s_sphere{ //sphere için struct
+    t_color sp_rgb; //rengi
+    t_xyz sp_xyz;  //koordinatları
+    double sp_diameter; //çapı
     struct s_sphere	*next;
 } t_sphere;
 
-typedef struct  s_plane{
-    t_color pl_rgb;
-    t_xyz pl_xyz;
-    t_xyz pl_xyz_3d;
+typedef struct  s_plane{//plane için struct
+    t_color pl_rgb;//rengi
+    t_xyz pl_xyz;//koordinatları
+    t_xyz pl_xyz_3d;//normal doğrusu gibi bişi
     struct s_plane	*next;
 } t_plane;
 
-typedef struct  s_cylinder{
-    t_color cy_rgb;
-    t_xyz cy_xyz;
-    t_xyz cy_xyz_3d;
-    double cy_diameter;
-    double cy_height;
+typedef struct  s_cylinder{//cylinder için struct
+    t_color cy_rgb;//renk
+    t_xyz cy_xyz;//koordinat
+    t_xyz cy_xyz_3d;//normal doğrusu
+    double cy_diameter;//çapı
+    double cy_height;//boyu
     struct s_cylinder	*next;
 } t_cylinder;
 
-typedef struct  s_file{
+typedef struct  s_file{//genel map
     int fd;
     int A;
     double A_ratio;

@@ -10,26 +10,32 @@ SRCS = ./main.c ./utils.c ./parser.c ./utils_cy.c \
 OBJ = $(SRCS:.c=.o)
 RM = rm -rf
 LIBFT = libft/libft.a
+MLX = mlx/libmlx.a
 
-all:$(NAME)
+all:$(MLX) $(NAME)
 
-$(NAME):$(OBJ)
+$(NAME):$(MLX) $(OBJ)
 	make -C libft
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT)  -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "****   minirt ok!    ****"
 
 %.o: %.c
-	$(CC) $(FLAGS) -c  $< -o $@
+	$(CC) $(FLAGS) -Imlx -c  $< -o $@
+
+$(MLX):
+	make -C mlx/
 
 $(LIBFT):
 	make -C libft/
 
 clean:
+	make clean -C mlx/
 	make clean -C libft/
 	${RM} $(OBJ)
 
 fclean: clean
 	${RM} ${NAME}
+	${RM} $(MLX)
 	${RM} $(LIBFT)
 
 re:			fclean all

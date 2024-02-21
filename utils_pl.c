@@ -66,4 +66,3 @@ int init_pl (t_file *file, char *line)
         }
         return(1);
 }
-
