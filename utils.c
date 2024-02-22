@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 15:44:48 by sgundogd          #+#    #+#             */
+/*   Updated: 2024/02/22 15:44:49 by sgundogd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	ft_strcmp(char *s1, char *s2)
@@ -21,18 +33,20 @@ int	ft_strcmp(char *s1, char *s2)
 	else
 		return (-s2[i]);
 }
-int size_2d(char **ptr)
+
+int	size_2d(char **ptr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ptr[i])
 		i++;
-	return(i);
+	return (i);
 }
-void control_elements(t_file* file)
+
+void	control_elements(t_file *file)
 {
-	if(file->a != 1 || file->c != 1 || file->l != 1)
+	if (file->a != 1 || file->c != 1 || file->l != 1)
 	{
 		printf("Missing or extra Elements\n");
 		exit(1);

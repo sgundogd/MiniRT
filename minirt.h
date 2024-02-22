@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:36:36 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:03:08 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:39:10 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,11 @@ typedef struct s_cylinder//cylinder için struct
 	struct s_cylinder	*next;
 }	t_cylinder;
 
-
 //typedef struct s_obj//cylinder için struct
 // {
 // 	void *data;
 // 	struct s_obj	*next;
 // }	t_obj;
-
-
 
 typedef struct s_plane //plane için struct
 {
@@ -104,9 +101,9 @@ void	init_fd(t_file *file, char *str);
 void	init_elements(t_file *file);
 int		find_and_direct(char *line, t_file *file);
 
-int		init_A(t_file *file, char *line);
-int		init_C(t_file *file, char *line);
-int		init_L(t_file *file, char *line);
+int		init_a(t_file *file, char *line);
+int		init_c(t_file *file, char *line);
+int		init_l(t_file *file, char *line);
 int		init_sp(t_file *file, char *line);
 int		init_pl(t_file *file, char *line);
 int		init_cy(t_file *file, char *line);
