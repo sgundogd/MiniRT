@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:42:56 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:44:19 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:53:00 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_sphere	*ft_last(t_sphere *lst)
 	return (NULL);
 }
 
-int	init_sp(t_file *file, char *line)
+int	init_sp(t_parse *file, char *line)
 {
 	t_sphere	*tmp;
 

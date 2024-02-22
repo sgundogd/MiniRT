@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:44:48 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:44:49 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:53:00 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	size_2d(char **ptr)
 	return (i);
 }
 
-void	control_elements(t_file *file)
+void	control_elements(t_parse *file)
 {
 	if (file->a != 1 || file->c != 1 || file->l != 1)
 	{

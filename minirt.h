@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:36:36 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:39:10 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:04:21 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,7 @@ typedef struct s_cylinder//cylinder için struct
 // 	struct s_obj	*next;
 // }	t_obj;
 
-typedef struct s_plane //plane için struct
-{
-	t_color			pl_rgb;//rengi
-	t_xyz			pl_xyz;//koordinatları
-	t_xyz			pl_xyz_3d;//normal doğrusu gibi bişi
-	struct s_plane	*next;
-}	t_plane;
-
-typedef struct s_file//genel map
+typedef struct s_parse//genel map
 {
 	int			fd;
 	int			a;
@@ -93,24 +85,24 @@ typedef struct s_file//genel map
 	t_sphere	*sp;
 	t_plane		*pl;
 	t_cylinder	*cy;
-}	t_file;
+}	t_parse;
 
 int		control_extension(char *str);
-void	initialize(t_file *file, char *str);
-void	init_fd(t_file *file, char *str);
-void	init_elements(t_file *file);
-int		find_and_direct(char *line, t_file *file);
+void	initialize(t_parse *file, char *str);
+void	init_fd(t_parse *file, char *str);
+void	init_elements(t_parse *file);
+int		find_and_direct(char *line, t_parse *file);
 
-int		init_a(t_file *file, char *line);
-int		init_c(t_file *file, char *line);
-int		init_l(t_file *file, char *line);
-int		init_sp(t_file *file, char *line);
-int		init_pl(t_file *file, char *line);
-int		init_cy(t_file *file, char *line);
+int		init_a(t_parse *file, char *line);
+int		init_c(t_parse *file, char *line);
+int		init_l(t_parse *file, char *line);
+int		init_sp(t_parse *file, char *line);
+int		init_pl(t_parse *file, char *line);
+int		init_cy(t_parse *file, char *line);
 
 int		size_2d(char **ptr);
 int		ft_strcmp(char *s1, char *s2);
-void	control_elements(t_file *file);
+void	control_elements(t_parse *file);
 void	free_2d(char **d);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:39:23 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:40:18 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:09:09 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	init_a(t_file *file, char *line)
+int	init_a(t_parse *file, char *line)
 {
 	char	**ptr;
 	char	**ptr_2;
@@ -33,7 +33,7 @@ int	init_a(t_file *file, char *line)
 	return (1);
 }
 
-int	init_c(t_file *file, char *line)
+int	init_c(t_parse *file, char *line)
 {
 	char	**ptr;
 	char	**ptr_2;
@@ -60,7 +60,7 @@ int	init_c(t_file *file, char *line)
 	return (1);
 }
 
-int	init_l(t_file *file, char *line)
+int	init_l(t_parse *file, char *line)
 {
 	char	**ptr;
 	char	**ptr_2;

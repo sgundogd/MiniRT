@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:41:12 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:42:32 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:53:00 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_plane	*ft_last(t_plane *lst)
 	return (NULL);
 }
 
-int	init_pl(t_file *file, char *line)
+int	init_pl(t_parse *file, char *line)
 {
 	t_plane	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:35:33 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:36:19 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:53:00 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_cylinder	*ft_last(t_cylinder *lst)
 	return (NULL);
 }
 
-int	init_cy(t_file *file, char *line)
+int	init_cy(t_parse *file, char *line)
 {
 	t_cylinder	*tmp;
 
