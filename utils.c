@@ -32,7 +32,7 @@ int size_2d(char **ptr)
 }
 void control_elements(t_file* file)
 {
-	if(file->A != 1 || file->C != 1 || file->L != 1)
+	if(file->a != 1 || file->c != 1 || file->l != 1)
 	{
 		printf("Missing or extra Elements\n");
 		exit(1);

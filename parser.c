@@ -9,14 +9,15 @@ int control_extension(char *str)
         i++;
     return(ft_strcmp(ft_substr(str,i-4,4),".res"));
 }
+
 void initialize(t_file *file, char *str)
 {
     file->sp = NULL;
     file->cy = NULL;
     file->pl = NULL;
-    file->A = 0;
-    file->C = 0;
-    file->L = 0;
+    file->a = 0;
+    file->c = 0;
+    file->l = 0;
     init_fd(file, str);
     init_elements(file);
     control_elements(file);
@@ -65,7 +66,7 @@ int find_and_direct(char *line,t_file *file)
     else if (!ft_strcmp(ft_substr(line,i,2),"C "))
         return(init_C (file, line));
     else if (!ft_strcmp(ft_substr(line,i,2),"L "))
-        return(init_L (file, line));   
+        return(init_L (file, line));
     else if (!ft_strcmp(ft_substr(line,i,3),"sp "))
         return(init_sp (file, line));
     else if (!ft_strcmp(ft_substr(line,i,3),"pl "))

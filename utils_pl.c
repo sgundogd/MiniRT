@@ -6,7 +6,7 @@ static t_plane	*ft_create(char *line)
     char **ptr_2;
     char **ptr_3;
     char **ptr_4;
-    
+
     new = ft_calloc(sizeof(t_plane), 1);
     ptr = ft_split(line, ' ');
     if(size_2d(ptr) != 4)
