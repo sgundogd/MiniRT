@@ -1,4 +1,16 @@
-#include"get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 21:30:25 by sgundogd          #+#    #+#             */
+/*   Updated: 2024/02/23 21:30:26 by sgundogd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include"../../inc/get_next_line.h"
 #include <stdio.h>
 
 char	*ft_controller(char *str, const char c, t_list *y)

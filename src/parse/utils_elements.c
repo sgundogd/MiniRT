@@ -6,11 +6,11 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:39:23 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 16:09:09 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:18:22 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../inc/minirt.h"
 
 int	init_a(t_parse *file, char *line)
 {

@@ -1,55 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pl.c                                         :+:      :+:    :+:   */
+/*   utils_sp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:41:12 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:53:00 by sgundogd         ###   ########.fr       */
+/*   Created: 2024/02/22 15:42:56 by sgundogd          #+#    #+#             */
+/*   Updated: 2024/02/23 21:18:32 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../inc/minirt.h"
 
-static t_plane	*ft_create(char *line)
+static t_sphere	*ft_create(char *line)
 {
-	t_plane	*new;
-	char	**ptr;
-	char	**ptr_2;
-	char	**ptr_3;
-	char	**ptr_4;
+	t_sphere	*new;
+	char		**ptr;
+	char		**ptr_2;
+	char		**ptr_3;
 
-	new = ft_calloc(sizeof(t_plane), 1);
+	new = ft_calloc(sizeof(t_sphere), 1);
 	ptr = ft_split(line, ' ');
 	if (size_2d(ptr) != 4)
-	{
-		free_2d(ptr);
 		return (printf("Wrong Definition"), NULL);
-	}
 	ptr_2 = ft_split(ptr[1], ',');
-	ptr_3 = ft_split(ptr[2], ',');
-	ptr_4 = ft_split(ptr[3], ',');
-	if (size_2d(ptr_2) != 3 || size_2d(ptr_3) != 3 || size_2d(ptr_4) != 3)
+	ptr_3 = ft_split(ptr[3], ',');
+	if (size_2d(ptr_2) != 3 || size_2d(ptr_3) != 3 )
 		return (printf("Wrong Definition"), NULL);
-	new->pl_xyz.x = atof(ptr_2[0]);
-	new->pl_xyz.y = atof(ptr_2[1]);
-	new->pl_xyz.z = atof(ptr_2[2]);
-	new->pl_xyz_3d.x = atof(ptr_3[0]);
-	new->pl_xyz_3d.y = atof(ptr_3[1]);
-	new->pl_xyz_3d.z = atof(ptr_3[2]);
-	new->pl_rgb.r = atof(ptr_4[0]);
-	new->pl_rgb.g = atof(ptr_4[1]);
-	new->pl_rgb.b = atof(ptr_4[2]);
-	new->next = NULL;
+	new->sp_xyz.x = atof(ptr_2[0]);
+	new->sp_xyz.y = atof(ptr_2[1]);
+	new->sp_xyz.z = atof(ptr_2[2]);
+	new->sp_diameter = atof(ptr[2]);
+	new->sp_rgb.r = atof(ptr_3[0]);
+	new->sp_rgb.g = atof(ptr_3[1]);
+	new->sp_rgb.b = atof(ptr_3[2]);
 	free_2d(ptr);
 	free_2d(ptr_2);
 	free_2d(ptr_3);
-	free_2d(ptr_4);
+	new->next = NULL;
 	return (new);
 }
 
-static t_plane	*ft_last(t_plane *lst)
+static t_sphere	*ft_last(t_sphere *lst)
 {
 	while (lst)
 	{
@@ -61,21 +53,21 @@ static t_plane	*ft_last(t_plane *lst)
 	return (NULL);
 }
 
-int	init_pl(t_parse *file, char *line)
+int	init_sp(t_parse *file, char *line)
 {
-	t_plane	*tmp;
+	t_sphere	*tmp;
 
-	if (file->pl)
+	if ((file->sp))
 	{
-		tmp = ft_last(file->pl);
+		tmp = ft_last(file->sp);
 		tmp->next = ft_create(line);
 		if (tmp->next == 0)
 			return (0);
 	}
 	else
 	{
-		file->pl = ft_create(line);
-		if (file->pl == 0)
+		file->sp = ft_create(line);
+		if (file->sp == 0)
 			return (0);
 	}
 	return (1);

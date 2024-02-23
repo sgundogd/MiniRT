@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:36:36 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 16:04:21 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:22:44 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include "./mlx/mlx.h"
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+# include "../lib/mlx/mlx.h"
+# include "../lib/libft/libft.h"
+# include "../inc/get_next_line.h"
 
 typedef struct s_color
 {

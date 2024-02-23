@@ -6,11 +6,11 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:44:48 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/22 15:53:00 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:18:34 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../inc/minirt.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
