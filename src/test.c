@@ -1,13 +1,13 @@
-#include "../inc/rt.h"
+#include "../inc/minirt.h"
 
 
-void	mlx_stuffs( t_general * );
+void	mlx_stuffs( t_data * );
 void	my_mlx_pixel_put( t_mlx *, int, int, int );
 void	render_background( t_mlx *, int );
 
-t_roots	r_intersects_sphere( const t_vec3 *, const t_sphere *, const t_general *);
+t_roots	r_intersects_sphere( const t_vec3 *, const t_sphere *, const t_data *);
 
-void	free_objects( t_general *genel) {
+void	free_objects( t_data *genel) {
 	int i = -1;
 
 	 while (++i < (int) genel->obj_count) {
@@ -19,7 +19,7 @@ void	free_objects( t_general *genel) {
 
 }
 
-int	free_exit( t_general *genel) {
+int	free_exit( t_data *genel) {
 	if (genel)
 	{
 		if (genel->mlx->img_p)
@@ -40,7 +40,7 @@ int	free_exit( t_general *genel) {
 }
 
 
-void	cam_move( t_general *genel, int keycode ) {
+void	cam_move( t_data *genel, int keycode ) {
 	if ( keycode == KEY_A ) genel->cam->origin.x += SHIFT_VAL;
 	else if ( keycode == KEY_D ) genel->cam->origin.x -= SHIFT_VAL;
 	else if ( keycode == KEY_W ) genel->cam->origin.z += SHIFT_VAL;
@@ -49,7 +49,7 @@ void	cam_move( t_general *genel, int keycode ) {
 	else if ( keycode == KEY_DOWN ) genel->cam->origin.y -= SHIFT_VAL;
 }
 
-int handle_key(int keycode, t_general *genel)
+int handle_key(int keycode, t_data *genel)
 {
 	if ( keycode == KEY_ESC || keycode == KEY_Q ) free_exit( genel );	//printf( "%d\n", keycode );
 
@@ -69,7 +69,7 @@ int handle_key(int keycode, t_general *genel)
 
 
 
-// t_color	trace_ray(t_general *genel, t_vec3 *d, double t_min, double t_max) // O the origin of the ray,
+// t_color	trace_ray(t_data *genel, t_vec3 *d, double t_min, double t_max) // O the origin of the ray,
 // {
 // 	t_vec3 *o = &genel->cam->origin;
 // 	double closest_t = INF;
@@ -108,7 +108,7 @@ int rgb_to_int(t_color *rgb)
 }
 
 
-// void render(t_general *genel)
+// void render(t_data *genel)
 // {
 // 	t_vec3	d;
 // 	t_color color;
@@ -116,10 +116,10 @@ int rgb_to_int(t_color *rgb)
 // 	int y = -1;
 // 	int x;
 
-// 	while (++y < V_HEIGHT)
+// 	while (++y < HEIGHT)
 // 	{
 // 		x = -1;
-// 		while (++x > V_WIDTH)
+// 		while (++x > WIDTH)
 // 		{
 // 			// d = canvas_to_viewport(&x, &y);
 // 			// color = trace_ray(genel, &d, 1, INF);
@@ -133,16 +133,16 @@ int rgb_to_int(t_color *rgb)
 
 
 
-void	new_mlx(t_general *d) {
+void	new_mlx(t_data *d) {
 	if (!d->mlx)
 		free_exit(d);
 	d->mlx->mlx_p = mlx_init();
 	if (!d->mlx->mlx_p)
 		free_exit(d);
-	d->mlx->win_p = mlx_new_window( d->mlx->mlx_p, V_WIDTH, V_HEIGHT, "tnoyan's team" );
+	d->mlx->win_p = mlx_new_window( d->mlx->mlx_p, WIDTH, HEIGHT, "tnoyan's team" );
 	if (!d->mlx->win_p)
 		free_exit(d);
-	d->mlx->img_p = mlx_new_image( d->mlx->mlx_p, V_WIDTH, V_HEIGHT );
+	d->mlx->img_p = mlx_new_image( d->mlx->mlx_p, WIDTH, HEIGHT );
 	if (!d->mlx->img_p)
 		free_exit(d);
 	d->mlx->addr = mlx_get_data_addr( d->mlx->img_p, &d->mlx->bpp, &d->mlx->line_len, &d->mlx->endian );
@@ -150,46 +150,29 @@ void	new_mlx(t_general *d) {
 		free_exit(d);
 }
 
-void	init_cam(t_general *d) {
-	if (!d->cam)
-		free_exit(d);
-	d->cam->origin = (t_vec3){0, 0, 0};
-	d->cam->dir = (t_vec3){0, 0, 1};
-	d->cam->fov = 60;
-}
-
-void	init_screen(t_general *d) {
+void	init_screen(t_data *d) {
 	if (!d->screen)
 		free_exit(d);
-	d->screen->aspect_ratio = V_WIDTH / V_HEIGHT;
-	d->screen->half_width = V_WIDTH / 2;
-	d->screen->half_height = V_HEIGHT / 2;
+	d->screen->aspect_ratio = WIDTH / HEIGHT;
+	d->screen->half_width = WIDTH / 2;
+	d->screen->half_height = HEIGHT / 2;
 	d->screen->viewport_width = 1 / tan(d->cam->fov / 2);
 	d->screen->viewport_height = d->screen->viewport_width / d->screen->aspect_ratio;
 }
 
-void	set_sphere(t_general *d, t_sphere *s, int i) {
+void	set_sphere(t_data *d, t_sphere *s, int i) {
 	d->obj_set[i].type = SPHERE;
 	d->obj_set[i].obj = s;
 	d->obj_set[i].idx = i;
 }
 
-void	set_light(t_general *d, t_light *l, int i) {
-	d->obj_set[i].type = LIGHT;
+void	set_light(t_data *d, t_light *l, int i) {
 	d->obj_set[i].obj = l;
 	d->obj_set[i].idx = i;
 }
 
-void	allocate(t_general *d) {
-	d->mlx = malloc(sizeof(t_mlx));
-	new_mlx(d);
-	d->cam = malloc(sizeof(t_cam));
-	d->obj_set = malloc(sizeof(t_obj) * d->obj_count);
-	d->screen = malloc(sizeof(t_screen));
-}
-
-void	set_stuffs(t_general *d) {
-	init_cam(d);
+void	set_stuffs(t_data *d) {
+	//init_cam(d);
 	init_screen(d);
 	//set_obj(d, obj);
 	//set_light(d, light);
@@ -197,7 +180,7 @@ void	set_stuffs(t_general *d) {
 
 
 
-void	main_loop(t_general *d) {
+void	main_loop(t_data *d) {
 	mlx_hook( d->mlx->win_p, 17, 1, &free_exit, d);
 	mlx_hook( d->mlx->win_p, EVENT_KEY_PRESS, 1, &handle_key, d );
 	mlx_loop( d->mlx->mlx_p );
@@ -205,7 +188,7 @@ void	main_loop(t_general *d) {
 }
 
 
-t_roots	r_intersects_sphere(const t_vec3 *d, const t_sphere *s, const t_general *genel)
+t_roots	r_intersects_sphere(const t_vec3 *d, const t_sphere *s, const t_data *genel)
 {
 	const t_vec3 *o = &genel->cam->origin;
 	t_vec3	co = v_substract(o, &s->center);

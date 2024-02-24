@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:44:48 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/23 21:18:34 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/24 03:52:19 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	size_2d(char **ptr)
 	return (i);
 }
 
-void	control_elements(t_parse *file)
+void	control_elements(t_data *data)
 {
-	if (file->a != 1 || file->c != 1 || file->l != 1)
+	if (data->a != 1 || data->c != 1 || data->l != 1)
 	{
 		printf("Missing or extra Elements\n");
 		exit(1);
@@ -63,4 +63,22 @@ void	free_2d(char **d)
 	while (d[i])
 		free(d[i++]);
 	free(d);
+}
+
+void	obj_counter(t_data *data)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = get_next_line(data->fd);
+	while (line)
+	{
+		while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n')
+			i++;
+		if (line[i] == 'c' || line[i] == 'p' || line[i] == 's')
+			data->obj_count += 1;
+		free(line);
+		line = get_next_line(data->fd);
+	}
 }

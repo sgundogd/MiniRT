@@ -10,10 +10,11 @@ SRC_DIR	=	src
 SRCS	=	$(SRC_DIR)/main.c \
 			$(SRC_DIR)/parse/utils.c \
 			$(SRC_DIR)/parse/parser.c \
-			$(SRC_DIR)/parse/utils_cy.c \
-			$(SRC_DIR)/parse/utils_elements.c \
-			$(SRC_DIR)/parse/utils_pl.c\
-			$(SRC_DIR)/parse/utils_sp.c \
+			$(SRC_DIR)/parse/init_cy.c \
+			$(SRC_DIR)/parse/init_elements.c \
+			$(SRC_DIR)/parse/init_pl.c\
+			$(SRC_DIR)/parse/init_sp.c \
+			$(SRC_DIR)/parse/init_objects.c \
 			$(SRC_DIR)/parse/get_next_line.c \
 			$(SRC_DIR)/parse/get_next_line_utils.c \
 			$(SRC_DIR)/test_mlx.c \

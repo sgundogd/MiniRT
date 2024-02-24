@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_cy.c                                         :+:      :+:    :+:   */
+/*   init_cy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:35:33 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/23 21:18:18 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/24 03:29:48 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minirt.h"
 
-static t_cylinder	*ft_create(char *line)
+int	init_cy(t_data *data, char *line, int index)
 {
 	t_cylinder	*new;
 	char		**ptr;
@@ -23,59 +23,27 @@ static t_cylinder	*ft_create(char *line)
 	new = ft_calloc(sizeof(t_cylinder), 1);
 	ptr = ft_split(line, ' ');
 	if (size_2d(ptr) != 6)
-		return (printf("Wrong Definition"), NULL);
+		return (printf("Wrong Definition"), 0);
 	ptr_2 = ft_split(ptr[1], ',');
 	ptr_3 = ft_split(ptr[2], ',');
 	ptr_4 = ft_split(ptr[5], ',');
 	if (size_2d(ptr_2) != 3 || size_2d(ptr_3) != 3 || size_2d(ptr_4) != 3)
-		return (printf("Wrong Definition"), NULL);
-	new->cy_xyz.x = atof(ptr_2[0]);
-	new->cy_xyz.y = atof(ptr_2[1]);
-	new->cy_xyz.z = atof(ptr_2[2]);
-	new->cy_xyz_3d.x = atof(ptr_3[0]);
-	new->cy_xyz_3d.y = atof(ptr_3[1]);
-	new->cy_xyz_3d.z = atof(ptr_3[2]);
-	new->cy_rgb.r = atof(ptr_4[0]);
-	new->cy_rgb.g = atof(ptr_4[1]);
-	new->cy_rgb.b = atof(ptr_4[2]);
-	new->cy_diameter = atof(ptr[3]);
-	new->cy_height = atof(ptr[4]);
-	new->next = NULL;
+		return (printf("Wrong Definition"), 0);
+	new->origin.x = atof(ptr_2[0]);
+	new->origin.y = atof(ptr_2[1]);
+	new->origin.z = atof(ptr_2[2]);
+	new->dir.x = atof(ptr_3[0]);
+	new->dir.y = atof(ptr_3[1]);
+	new->dir.z = atof(ptr_3[2]);
+	new->color.r = atof(ptr_4[0]);
+	new->color.g = atof(ptr_4[1]);
+	new->color.b = atof(ptr_4[2]);
+	new->r = atof(ptr[3]);
+	new->height = atof(ptr[4]);
 	free_2d(ptr);
 	free_2d(ptr_2);
 	free_2d(ptr_3);
 	free_2d(ptr_4);
-	return (new);
-}
-
-static t_cylinder	*ft_last(t_cylinder *lst)
-{
-	while (lst)
-	{
-		if (lst->next)
-			lst = lst->next;
-		else
-			return (lst);
-	}
-	return (NULL);
-}
-
-int	init_cy(t_parse *file, char *line)
-{
-	t_cylinder	*tmp;
-
-	if (file->cy)
-	{
-		tmp = ft_last(file->cy);
-		tmp->next = ft_create(line);
-		if (tmp->next == 0)
-			return (0);
-	}
-	else
-	{
-		file->cy = ft_create(line);
-		if (file->cy == 0)
-			return (0);
-	}
+	data->obj_set[index].obj = new;
 	return (1);
 }

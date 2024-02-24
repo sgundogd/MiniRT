@@ -6,12 +6,12 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 21:44:02 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/23 21:44:25 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/24 04:12:56 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/keys.h"
-#include "../inc/rt.h"
+#include "../inc/minirt.h"
 
 void	my_mlx_pixel_put(t_mlx *m, int x, int y, int color)
 {
@@ -26,9 +26,9 @@ void	render_background( t_mlx *m, int color ) {
     int	y;
 
     y = -1;
-    while ( ++y < V_HEIGHT ) {
+    while ( ++y < HEIGHT ) {
         x = -1;
-        while ( ++x < V_WIDTH ) {
+        while ( ++x < WIDTH ) {
             my_mlx_pixel_put( m, x, y, color );
         }
     }

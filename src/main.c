@@ -6,29 +6,29 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:32:43 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/23 21:47:00 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/24 03:59:42 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../inc/minirt.h"
-#include "../inc/rt.h"
+#include "../inc/minirt.h"
+//#include "../inc/rt.h"
 
 
 
-/*int	main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_parse	file;
+	t_data	data;
 
 	if (ac != 2 || control_extension(av[1]))
 		return (printf("Error: Wrong argument"), 1);
-	initialize(&file, av[1]);
-	printf("A: %f %f,%f,%f\n",file.a_ratio, file.a_rgb.r,file.a_rgb.g,file.a_rgb.b);
-	printf("C: %f,%f,%f %f\n",file.c_xyz.x, file.c_xyz.y,file.c_xyz.z,file.c_xyz_3d.x);
-	printf("sp: %f and\n",file.sp->sp_diameter);
-}*/
+	initialize(&data, av[1]);
+	printf("A: %f %d\n",data.ambient_light->brightness, data.ambient_light->color.r);
+	printf("C: %f,%f\n",data.cam->origin.x, data.cam->fov);
+	printf("sp: %d and %d\n",data.obj_set[0].type, data.obj_set[1].idx);
+}
 
-int main() {
-	t_general genel;
+/*int main() {
+	t_data genel;
 
 	unsigned short sphere_count = 3;
 	genel.obj_count = sphere_count + 0;
@@ -53,4 +53,4 @@ int main() {
 	main_loop(&genel);
 	//mlx_stuffs( &genel);
 
-}
+}*/

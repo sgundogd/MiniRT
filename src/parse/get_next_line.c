@@ -6,12 +6,11 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 21:30:22 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/23 21:30:23 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/24 00:31:23 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../../inc/get_next_line.h"
-#include<stdio.h>
+#include "../../inc/get_next_line.h"
 
 int	getline2(int fd, t_list *y)
 {
