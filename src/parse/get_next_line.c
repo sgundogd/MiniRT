@@ -6,71 +6,63 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 21:30:22 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/24 00:31:23 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:53:56 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line.h"
 
-int	getline2(int fd, t_list *y)
+size_t	ft_strlen(const char *str)
 {
-	char	*str;
-	int		rd;
+	size_t	i;
 
-	rd = 1;
-	str = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	i = 0;
 	if (!str)
 		return (0);
-	while (rd > 0 && ft_chk(y->x, 1, '\n') == 1)
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_read(int fd, char *str)
+{
+	int		count;
+	char	*buffer;
+
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	count = 1;
+	while (ft_find_line(str) && (count != 0))
 	{
-		rd = read(fd, str, BUFFER_SIZE);
-		if (rd == -1)
+		count = read(fd, buffer, BUFFER_SIZE);
+		if (count < 0)
 		{
+			free(buffer);
 			free(str);
 			return (0);
 		}
-		str[rd] = 0;
-		y->x = ft_strjoin(y->x, str);
+		buffer[count] = '\0';
+		str = ft_strjoin(str, buffer);
 	}
-	free(str);
-	return (1);
+	free(buffer);
+	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*y;
-	t_list			*tmp;
-	char			*line;
+	static char	*str;
+	char		*result;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
-		free(y);
+		free(str);
 		return (NULL);
 	}
-	if (!y)
-		y = ft_lstnew();
-	if (!getline2(fd, y))
+	str = ft_read(fd, str);
+	if (!str)
 		return (NULL);
-	line = ft_controller (y->x, '\n', y);
-	tmp = y->next;
-	free(y);
-	y = tmp;
-	if (!*line)
-	{
-		free(line);
-		line = NULL;
-	}
-	return (line);
-}
-
-t_list	*ft_lstnew(void)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
-		return (NULL);
-	new->x = NULL;
-	new->next = 0;
-	return (new);
+	result = read_line(str);
+	str = next_line(str);
+	return (result);
 }

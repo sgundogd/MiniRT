@@ -7,7 +7,8 @@ MLX		=	lib/mlx/libmlx.a
 GNL		=	lib/gnl
 
 SRC_DIR	=	src
-SRCS	=	$(SRC_DIR)/main.c \
+SRCS	=	$(SRC_DIR)/intersections.c \
+			$(SRC_DIR)/main.c \
 			$(SRC_DIR)/parse/utils.c \
 			$(SRC_DIR)/parse/parser.c \
 			$(SRC_DIR)/parse/init_cy.c \

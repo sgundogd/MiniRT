@@ -6,117 +6,95 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 21:30:25 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/23 22:20:46 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:53:33 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line.h"
 
-char	*ft_controller(char *str, const char c, t_list *y)
+int	ft_find_line(char *str)
 {
-	int		i;
-
-	i = -1;
-	if (!*str)
-	{
-		y->x = NULL;
-		return (str);
-	}
-	while (str[++i])
-	{
-		if (str[i] == c)
-		{
-			y->x = ft_cutter(str, c, i);
-			i++;
-			y->next = ft_lstnew();
-			y->next->x = ft_strdup(&str[i]);
-			free(str);
-			return (y->x);
-		}
-	}
-	return (y->x);
-}
-
-int	ft_chk(const char *a, int chker, int c)
-{
-	int	i;
-
-	i = 0;
-	if (chker == 0)
-	{
-		while (a && a[i] != 0)
-			i++;
-		return (i);
-	}
-	if (!a)
+	if (!str)
 		return (1);
-	else if (chker == 1)
+	while (*str)
 	{
-		i = -1;
-		while (a[++i] != 0)
-			if (a[i] == c)
-				return (0);
-		return (1);
+		if (*str == '\n')
+			return (0);
+		str++;
 	}
-	return (0);
+	return (1);
 }
 
-char	*ft_strjoin(char *s1, const char *s2)
+char	*ft_strjoin(char *str, char *buffer)
 {
-	char	*all;
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
+	char	*result;
 
 	i = -1;
-	j = -1;
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		s1[0] = 0;
-	}
-	all = malloc(sizeof(char) * (ft_chk(s1, 0, 0) + ft_chk(s2, 0, 0) + 1));
-	while (s1[++i])
-		all[i] = s1[i];
-	while (s2 && s2[++j])
-		all[i++] = s2[j];
-	all[i] = '\0';
-	free(s1);
-	return (all);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*newrepo;
-	int		i;
-
-	i = -1;
-	newrepo = malloc(sizeof(char) * (ft_chk(s1, 0, 0) + 1));
-	if (!newrepo)
-		return (NULL);
-	while (s1 && s1[++i])
-		newrepo[i] = s1[i];
-	newrepo[i] = 0;
-	return (newrepo);
-}
-
-char	*ft_cutter(char *str, char c, int i)
-{
-	char	*temp;
-	int		j;
-
 	j = 0;
 	if (!str)
 	{
-		str = malloc(sizeof(char));
-		str[0] = 0;
+		str = malloc(sizeof(char) * 1);
+		str[0] = '\0';
 	}
-	temp = malloc(sizeof(char) * i + 2);
-	while (j != i)
+	result = malloc(sizeof(char) * ft_strlen(str) + ft_strlen(buffer) + 1);
+	if (!result)
+		return (NULL);
+	while (str[++i])
+		result[i] = str[i];
+	while (buffer[j])
+		result[i++] = buffer[j++];
+	free(str);
+	result[i] = '\0';
+	return (result);
+}
+
+char	*read_line(char *str)
+{
+	size_t	i;
+	char	*result;
+
+	i = 0;
+	if (!*str)
+		return (NULL);
+	while (str[i] && str[i] != '\n')
+		i++;
+	result = malloc(i + 2);
+	if (!result)
+		return (NULL);
+	i = -1;
+	while (str[++i] && str[i] != '\n')
+		result[i] = str[i];
+	if (str[i] == '\n')
+		result[i++] = '\n';
+	result[i] = '\0';
+	return (result);
+}
+
+char	*next_line(char *str)
+{
+	int		i;
+	char	*result;
+	int		j;
+
+	i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
+		i++;
+	if (!*str)
 	{
-		temp[j] = str[j];
-		j++;
+		free(str);
+		return (NULL);
 	}
-	temp[j++] = c;
-	temp[j] = '\0';
-	return (temp);
+	if (str[i] == '\n')
+		i++;
+	result = malloc(ft_strlen(str) - i + 1);
+	if (!result)
+		return (NULL);
+	j = 0;
+	while (str[i])
+		result[j++] = str[i++];
+	result[j] = '\0';
+	free(str);
+	return (result);
 }

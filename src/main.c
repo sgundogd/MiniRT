@@ -3,17 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogcetin <ogcetin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:32:43 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/24 03:59:42 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:37:13 by ogcetin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
-//#include "../inc/rt.h"
 
+void print_data(t_data data)
+{
+	printf("Ambient Light Ratio:%f\n", data.ambient_light->brightness);
+	printf("\tColor-> r:%d g:%d b:%d\n", data.ambient_light->color.r, data.ambient_light->color.g, data.ambient_light->color.b);
+	printf("\nLight Source Ratio: %f\n", data.light->brightness);
+	printf("\tPosition: x:%f y:%f z:%f\n", data.light->origin.x, data.light->origin.y, data.light->origin.z);
+	printf("\nCamera Position:  x:%f y:%f z:%f\n", data.cam->origin.x, data.cam->origin.y, data.cam->origin.z);
+	printf("Camera Direction: x:%f y:%f z:%f\n", data.cam->dir.x, data.cam->dir.y, data.cam->dir.z);
+	printf("Camera FOV: %f\n", data.cam->fov);
+	printf("\nNumber of Objects: %d\n", data.obj_count);
+	for (int i = 0; i < data.obj_count; i++)
+	{
+		printf("%d.Object Type: %d\n", i + 1 , data.obj_set[i].type);
+		printf("\tSphere Radius: %.0f\n", ((t_sphere *)data.obj_set[i].obj)->r);
+		printf("\tSphere Position: x:%.0f y:%.0f z:%.0f\n", ((t_sphere *)data.obj_set[i].obj)->center.x, ((t_sphere *)data.obj_set[i].obj)->center.y, ((t_sphere *)data.obj_set[i].obj)->center.z);
+		printf("\tSphere Color: r:%d g:%d b:%d\n", ((t_sphere *)data.obj_set[i].obj)->color.r, ((t_sphere *)data.obj_set[i].obj)->color.g, ((t_sphere *)data.obj_set[i].obj)->color.b);
+		printf("\n");
+	}
+}
 
+// https://graphics.cs.wisc.edu/WP/cs559-fall2016/files/2016/12/shirley_chapter_4.pdf
 
 int	main(int ac, char **av)
 {
@@ -22,35 +41,11 @@ int	main(int ac, char **av)
 	if (ac != 2 || control_extension(av[1]))
 		return (printf("Error: Wrong argument"), 1);
 	initialize(&data, av[1]);
-	printf("A: %f %d\n",data.ambient_light->brightness, data.ambient_light->color.r);
-	printf("C: %f,%f\n",data.cam->origin.x, data.cam->fov);
-	printf("sp: %d and %d\n",data.obj_set[0].type, data.obj_set[1].idx);
+	
+	print_data(data);
+	
+
+	main_loop(&data);
+	return (0);
 }
 
-/*int main() {
-	t_data genel;
-
-	unsigned short sphere_count = 3;
-	genel.obj_count = sphere_count + 0;
-
-	allocate(&genel);
-	t_sphere *sphere_set = malloc(sizeof(t_sphere) * sphere_count);
-	sphere_set[0] = (t_sphere) { (t_vec3){0, 0, 5}, 1, (t_color){255, 0, 0} };
-	sphere_set[1] = (t_sphere) { (t_vec3){0, 0, 5}, 1, (t_color){255, 0, 0} };
-	sphere_set[2] = (t_sphere) { (t_vec3){0, 0, 5}, 1, (t_color){255, 0, 0} };
-	// unsigned short plane_count = 2;
-	// t_plane *plane_set = malloc(sizeof(t_plane) * plane_count);
-	// plane_set[0] = (t_plane) { (t_vec3){0, 0, 5}, (t_vec3){0, 1, 0}, (t_color){255, 0, 0} };
-	// plane_set[1] = (t_plane) { (t_vec3){0, 0, 5}, (t_vec3){0, 1, 0}, (t_color){255, 0, 0} };
-
-	unsigned short k = -1;
-	int i = -1;	while (++i < sphere_count) set_sphere(&genel, &sphere_set[i], ++k);
-	//	i = -1;	while (++i < plane_count) set_plane(&genel, &plane_set[i], ++k);
-
-
-	set_stuffs(&genel);
-
-	main_loop(&genel);
-	//mlx_stuffs( &genel);
-
-}*/

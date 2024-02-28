@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:44:48 by sgundogd          #+#    #+#             */
-/*   Updated: 2024/02/24 03:52:19 by sgundogd         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:08:55 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,6 @@ int	size_2d(char **ptr)
 	return (i);
 }
 
-void	control_elements(t_data *data)
-{
-	if (data->a != 1 || data->c != 1 || data->l != 1)
-	{
-		printf("Missing or extra Elements\n");
-		exit(1);
-	}
-}
-
 void	free_2d(char **d)
 {
 	int	i;
@@ -65,20 +56,27 @@ void	free_2d(char **d)
 	free(d);
 }
 
-void	obj_counter(t_data *data)
+void	init_fd(t_data *data, char *str)
 {
-	char	*line;
-	int		i;
+	int	a;
 
-	i = 0;
-	line = get_next_line(data->fd);
-	while (line)
+	a = open(str, O_RDONLY);
+	if (a == -1)
 	{
-		while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n')
-			i++;
-		if (line[i] == 'c' || line[i] == 'p' || line[i] == 's')
-			data->obj_count += 1;
-		free(line);
-		line = get_next_line(data->fd);
+		perror("Error");
+		exit(1);
+	}
+	data->fd = a;
+}
+
+void	close_fd(t_data *data)
+{
+	int	a;
+
+	a = close(data->fd);
+	if (a == -1)
+	{
+		perror("Error");
+		exit(1);
 	}
 }
